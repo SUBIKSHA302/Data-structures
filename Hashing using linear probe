@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define SIZE 10
+
+struct HashTable {
+    int table[SIZE];
+};
+
+// Initialize the hash table
+void initialize(struct HashTable* ht) {
+    for (int i = 0; i < SIZE; i++) {
+        ht->table[i] = -1; // -1 indicates an empty slot
+    }
+}
+
+// Hash function using modulo operator
+int hashFunction(int key) {
+    return key % SIZE;
+}
+
+// Insert a value into the hash table using linear probing
+void insert(struct HashTable* ht, int value) {
+    int index = hashFunction(value);
+
+    while (ht->table[index] != -1) {
+        index = (index + 1) % SIZE; // Move to the next slot
+    }
+
+    ht->table[index] = value;
+}
+
+// Search for a value in the hash table
+bool search(struct HashTable* ht, int value) {
+    int index = hashFunction(value);
+
+    while (ht->table[index] != -1) {
+        if (ht->table[index] == value) {
+            return true; // Value found
+        }
+        index = (index + 1) % SIZE; // Move to the next slot
+    }
+
+    return false; // Value not found
+}
+
+int main() {
+    struct HashTable ht;
+    initialize(&ht);
+
+    insert(&ht, 12);
+    insert(&ht, 22);
+    insert(&ht, 32);
+    insert(&ht, 7);
+
+    int searchValue = 22;
+    if (search(&ht, searchValue)) {
+        printf("%d found in the hash table.\n", searchValue);
+    } else {
+        printf("%d not found in the hash table.\n", searchValue);
+    }
+
+    return 0;
+}
+￼Enter

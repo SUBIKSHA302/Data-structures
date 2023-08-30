@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_SIZE 100
+
+struct Stack {
+    int arr[MAX_SIZE];
+    int top;
+};
+
+// Initialize a stack
+void initialize(struct Stack* stack) {
+    stack->top = -1;
+}
+
+// Check if the stack is empty
+bool isEmpty(struct Stack* stack) {
+    return stack->top == -1;
+}
+
+// Check if the stack is full
+bool isFull(struct Stack* stack) {
+    return stack->top == MAX_SIZE - 1;
+}
+
+// Push an element onto the stack
+void push(struct Stack* stack, int value) {
+    if (isFull(stack)) {
+        printf("Stack is full, cannot push element.\n");
+        return;
+    }
+    stack->arr[++stack->top] = value;
+}
+
+// Pop an element from the stack
+int pop(struct Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is empty, cannot pop element.\n");
+        return -1;
+    }
+    return stack->arr[stack->top--];
+}
+
+int main() {
+    struct Stack stack;
+    initialize(&stack);
+
+    // Push elements onto the stack
+    push(&stack, 10);
+    push(&stack, 20);
+    push(&stack, 30);
+
+    // Pop elements from the stack
+    printf("Popped: %d\n", pop(&stack));
+    printf("Popped: %d\n", pop(&stack));
+
+    return 0;
+}
+￼Enter
